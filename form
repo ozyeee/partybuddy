@@ -1,0 +1,91 @@
+function createGoogleForm() {
+  var form = FormApp.create('어린이 생일파티 경험 및 신규 서비스 수요 조사');
+  form.setDescription('안녕하세요! 저희는 이마트와 신세계푸드의 자원을 활용한 신사업 아이디어를 제안하는 프로젝트팀입니다.\n부모님들의 실제 생일파티 경험과 의견을 듣고자 합니다. 설문은 약 3분 소요되며, 응답은 아이디어 기획 및 분석 목적으로만 활용됩니다.\n※ 본 설문은 이마트·스타필드의 공식 설문이 아니며, 실제 서비스 운영이 확정된 것은 아닙니다.');
+
+  // SECTION 1: 기본 정보 및 이용 현황
+  form.addPageBreakItem().setTitle('A. 기본 정보 및 이용 현황');
+  
+  var q1 = form.addMultipleChoiceItem();
+  q1.setTitle('Q1. 연령대가 어떻게 되시나요?').setRequired(true);
+  q1.setChoices([
+    q1.createChoice('20대'),
+    q1.createChoice('30대'),
+    q1.createChoice('40대'),
+    q1.createChoice('50대 이상')
+  ]);
+
+  var q2 = form.addTextItem();
+  q2.setTitle('Q2. 현재 거주하시는 지역은 어디인가요?')
+    .setHelpText('※ 시·군·구 또는 동 단위로 작성해 주세요. (예: 화성시 반송동)')
+    .setRequired(true);
+
+  var q3 = form.addCheckboxItem();
+  q3.setTitle('Q3. 자녀의 연령은 어떻게 되나요? (복수 선택)').setRequired(true);
+  q3.setChoices([
+    q3.createChoice('5세 이하'),
+    q3.createChoice('6~7세'),
+    q3.createChoice('8~10세'),
+    q3.createChoice('11세 이상')
+  ]);
+
+  // Q4 문항 (수정 반영)
+  var q4 = form.addMultipleChoiceItem();
+  q4.setTitle('Q4. 스타필드 마켓을 방문하거나 이용해보신 경험이 있으신가요?').setRequired(true);
+  q4.setChoices([
+    q4.createChoice('주 1회 이상 방문한다'),
+    q4.createChoice('월 1회 이상 방문한다'),
+    q4.createChoice('3개월에 1회 이상 방문한다'),
+    q4.createChoice('방문해본 적 없다')
+  ]);
+
+  // SECTION 2: 생일파티 경험 및 불편
+  form.addPageBreakItem().setTitle('B. 생일파티 경험 및 불편');
+
+  var q5 = form.addMultipleChoiceItem();
+  q5.setTitle('Q5. 자녀의 친구들을 초대해 생일파티를 진행한 경험이 있으신가요?').setRequired(true);
+  q5.setChoices([
+    q5.createChoice('키즈카페 또는 파티룸에서 진행'),
+    q5.createChoice('집이나 다른 장소에서 진행'),
+    q5.createChoice('경험 없음')
+  ]);
+
+  var q6 = form.addMultipleChoiceItem();
+  q6.setTitle('Q6. 향후 1년 이내 자녀의 친구 초대 생일파티를 진행할 생각이 있으신가요?').setRequired(true);
+  q6.setChoices([
+    q6.createChoice('계획하고 있다'),
+    q6.createChoice('고려 중이다'),
+    q6.createChoice('계획이 없다')
+  ]);
+
+  var q7 = form.addCheckboxItem();
+  q7.setTitle('Q7. 자녀의 생일파티를 준비할 때 가장 고민되는 부분은 무엇인가요? (최대 2개)').setRequired(true);
+  q7.setChoices([
+    q7.createChoice('장소 선정 및 예약'),
+    q7.createChoice('간식·케이크 준비'),
+    q7.createChoice('답례품 준비'),
+    q7.createChoice('파티 진행 및 정리'),
+    q7.createChoice('비용 부담'),
+    q7.createChoice('없음')
+  ]);
+  q7.showOtherOption(true);
+
+  // SECTION 3: 식품 선택 기준
+  form.addPageBreakItem().setTitle('C. 식품 선택 기준');
+
+  var q8 = form.addCheckboxItem();
+  q8.setTitle('Q8. 아이들의 생일파티 간식과 답례품을 선택할 때 가장 중요하게 생각하는 것은 무엇인가요? (최대 2개)').setRequired(true);
+  q8.setChoices([
+    q8.createChoice('원재료·성분 및 알레르기 정보'),
+    q8.createChoice('위생 및 제조사 신뢰도'),
+    q8.createChoice('아이들의 입맛과 선호도'),
+    q8.createChoice('가격'),
+    q8.createChoice('포장 및 준비의 편리함')
+  ]);
+
+  // SECTION 4: 신규 서비스 이용 의향
+  var sec4 = form.addPageBreakItem().setTitle('D. 신규 서비스 이용 의향');
+  sec4.setHelpText('[가상 서비스 아이디어 소개]\n저희 팀은 대형마트 내 공간과 기존 식품을 활용해 어린이 생일파티를 한 번에 준비할 수 있는 \'파티버디(PARTY BUDDY)\' 서비스를 제안하고자 합니다.\n\n예상 구성은 다음과 같습니다.\n- 어린이 8명 기준, 기본 가격 30만 원\n- 파티룸 2시간 이용\n- 신세계푸드의 케이크·간식·답례품 제공\n- 기본 장식·돌봄선생님·사진 촬영 및 정리\n- 챔피온 2시간 이용권 제공\n※ 실제 운영이 확정된 서비스가 아닌, 시장성 검토를 위한 가상의 기획안입니다.');
+
+  var q9 = form.addMultipleChoiceItem();
+  q9.setTitle('Q9. 앞서 선택한 지점에서 위 서비스가 30만 원에 제공된다고 가정한다면, 이용할 의향이 있으신가요?').setRequired(true);
+  q9.set
